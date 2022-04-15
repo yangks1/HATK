@@ -406,6 +406,7 @@ def HATKMAIN():
             candidatePatternNum += 1
     # 模式增长，
     while candidatePatternInforList:
+
         if flag and minutal < minau:
             minutal = maxCode
             for name in allItemName.keys():
@@ -419,7 +420,7 @@ def HATKMAIN():
         if maub >= minau:
             minau = extendPattern(ListsTemp, minau)
         candidatePatternInforList.pop(0)
-    print(minau)
+
     return ListsTemp
 
 
@@ -430,22 +431,22 @@ if __name__ == '__main__':
     # dataTable = {"a": {"1": [[1, 2, 3]], "2": [[1, 2]], "3": [[2, 3]], "4": [[1, 4]], "5": [[2]]}, "b": {"1": [[2, 3]], "2": [[2, 3]], "3": [[2, 3]], "4": [[2]], "5": [[1, 3]]}, "c": {"1": [[1, 2, 5]], "2": [[3]], "4": [[3, 4]], "5": [[3, 5]]}, "d": {"1": [[3]], "2": [[2, 3]], "3": [[3]], "4": [[3]], "5": [[2, 5]]}, "e": {"1": [[4]], "2": [[1, 3]], "4": [[2]], "5": [[1, 2, 3]]}, "f": {"1": [[5]], "3": [[1]], "5": [[4]]}}
     # utilityTable = {"a": 2.1, "b": 1.2}
     # dataTable = {"a": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}, "b": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}}
-    utilityTable = {"a": 10, "b": 5, "c": 8, "d": 3}
-    dataTable = {"a": {"1": [[1, 2, 3, 5, 7]], "2": [[1, 2, 4, 6, 7]]},
-                 "b": {"1": [[2, 3, 5, 8]], "2": [[2, 3, 5, 7]]},
-                 "c": {"1": [[1, 3, 4, 7]], "2": [[3, 6]]},
-                 "d": {"1": [[2, 4, 6, 8]], "2": [[2, 4, 5, 7]]}
-                 }
+    # utilityTable = {"a": 10, "b": 5, "c": 8, "d": 3}
+    # dataTable = {"a": {"1": [[1, 2, 3, 5, 7]], "2": [[1, 2, 4, 6, 7]]},
+    #              "b": {"1": [[2, 3, 5, 8]], "2": [[2, 3, 5, 7]]},
+    #              "c": {"1": [[1, 3, 4, 7]], "2": [[3, 6]]},
+    #              "d": {"1": [[2, 4, 6, 8]], "2": [[2, 4, 5, 7]]}
+    #              }
     # 数据库预处理
     # utilityTable = DP.operateUtilityTableFile1()
     # dataTable = DP.operateDataFile1(utilityTable)
     # utilityTable = DP.operateUtilityTableFile2()
     # dataTable = DP.operateDataFile2(utilityTable)
-    # utilityTable = DP.operateUtilityTableFile3()
-    # dataTable = DP.operateDataFile3(utilityTable)
+    utilityTable = DP.operateUtilityTableFile3()
+    dataTable = DP.operateDataFile3(utilityTable)
 
     # k值
-    kValue = 3
+    kValue = 100
     # kValue = len(utilityTable)
 
     # candidatePatternInforList存储候选模式，及其信息：
@@ -469,13 +470,3 @@ if __name__ == '__main__':
     print("生成的候选模式个数：" + str(candidatePatternNum))
     print("运行时间：" + str(endTime * 1000-starTime * 1000) + "ms")
     print(Lists)
-    print("--------------------------")
-    # print(auCalculate([["a"]], dataTable["a"]))
-    # print(maubCalculate(dataTable["a"]))
-    # print(auCalculate([["b"]], dataTable["b"]))
-    # print(maubCalculate(dataTable["b"]))
-    # print(auCalculate([["c"]], dataTable["c"]))
-    # print(maubCalculate(dataTable["c"]))
-    # print(auCalculate([["d"]], dataTable["d"]))
-    # print(maubCalculate(dataTable["d"]))
-    # print(minutal)

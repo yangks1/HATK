@@ -1,9 +1,6 @@
 import time
 import DataProcessing as DP
-'''
-更改3
-deletedItemSet存入allItemName
-'''
+
 def utility(pattern):
     """
     :param pattern: 输入的需要计算的模式例如：[["1002", "1003"]["1004"]]
@@ -52,6 +49,8 @@ def sizePattern(pattern):
 
 
 
+
+
 def auCalculate(pattern, patternPosition):
     """
     计算模式pattern的平均效用
@@ -63,7 +62,7 @@ def auCalculate(pattern, patternPosition):
     supportValue = supportCalculate(patternPosition)
     utilityValue = utility(pattern)
     length = lenPattern(pattern)
-    averageUtility = (supportValue * utilityValue) / length
+    averageUtility = supportValue * utilityValue / length
     return averageUtility
 
 
@@ -95,7 +94,6 @@ def maubCalculate(patternPositionTemp):
 
 def saveTopkPattern(pattern, ListsTemp, au, minau):
     lengthOfList = len(ListsTemp[0])
-    global flag
     if lengthOfList < kValue:
         indexTemp = 0
         while indexTemp < lengthOfList and ListsTemp[1][indexTemp] > au:
@@ -104,7 +102,7 @@ def saveTopkPattern(pattern, ListsTemp, au, minau):
         ListsTemp[1].insert(indexTemp, au)
         if lengthOfList + 1 == kValue:
             minau = ListsTemp[1][kValue - 1]
-            flag = 1
+
     else:
         indexTemp = 0
         while indexTemp < lengthOfList and ListsTemp[1][indexTemp] > au:
@@ -115,8 +113,46 @@ def saveTopkPattern(pattern, ListsTemp, au, minau):
             ListsTemp[0].pop()
             ListsTemp[1].pop()
         minau = ListsTemp[1][kValue-1]
-        flag = 1
+
     return minau
+
+
+def mtb(pattern, patternPosition):
+    """
+    :param
+    allItemList:按照元素效用值排序
+
+    :return:
+    """
+    uv = utility(pattern)
+    auv = uv/lenPattern(pattern)
+    maxs = 0
+    num = 0
+    for sequenceId in patternPosition.keys():
+        endIndex = patternPosition[sequenceId][-1][0]
+        i = 0
+        value = 0
+        indexs = 0
+        while allUList[1][i] > auv:
+            if sequenceId in dataTable[allUList[0][i]].keys():
+                index = 0
+                for j in dataTable[allUList[0][i]][sequenceId][0]:
+                    if j > endIndex:
+                        index += 1
+
+                uvi = index * allUList[1][i]
+                value += uvi
+            i += 1
+            indexs += index
+        if maxs < value:
+            maxs = value
+            num = indexs
+    allu = uv + maxs
+    mtbv = supportCalculate(patternPosition) * allu / (lenPattern(pattern) + num)
+
+    return mtbv
+
+
 
 
 def oneOff(itemSetExitInter, newPatternPosition, newpatternAllPosition):
@@ -124,7 +160,7 @@ def oneOff(itemSetExitInter, newPatternPosition, newpatternAllPosition):
     一次性判断
     满足一次性返回True，否则返回False
 
-    :param itemSetExitInter:
+    :param itemSetExitInter:序列模式中各项集之间的交集关系
     :param newPatternPosition:
     :param newpatternAllPosition:
     :return:
@@ -161,8 +197,9 @@ def extendPattern(ListsTemp, minau):
     oldPatternDeletePosition = patternInfor[4]
 
     # 序列扩展
-    for item in allItemName.keys():
-        if allItemName[item][0]:
+    for item in allItemList[0]:
+        index = allItemList[0].index(item)
+        if allItemList[1][index] > minau:
             # 得到newPattern
             newPattern = patternInfor[0][:]
             newPattern.append([item])
@@ -170,7 +207,6 @@ def extendPattern(ListsTemp, minau):
             newPatternPosition = {}
             newPatternDeletePosition = {}
             itemPosition = dataTable[item]
-            indexOfItem = list(allItemName.keys()).index(item)
             """
             纪录新模式中各项集之间是否有相同项
             """
@@ -267,15 +303,23 @@ def extendPattern(ListsTemp, minau):
                         newPatternPosition.pop(patternIndex)
                         newPatternDeletePosition.pop(patternIndex)
             au = auCalculate(newPattern, newPatternPosition)
-            maub = maubCalculate(newPatternPosition)
-            if maub > minau:
-                if au > minau:
-                    minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
-                candidatePatternInforList.append([newPattern, indexOfItem + 1, newPatternPosition, maub, newPatternDeletePosition])
+            if au > minau:
+                minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
+                candidatePatternInforList.append([newPattern, index + 1, newPatternPosition, au, newPatternDeletePosition])
                 candidatePatternNum += 1
+            else:
+                mtbv = mtb(newPattern, newPatternPosition)
+                if mtbv > minau:
+                    candidatePatternInforList.append(
+                        [newPattern, index + 1, newPatternPosition, au, newPatternDeletePosition, mtbv])
+                    candidatePatternNum += 1
+        else:
+            break
+
     # 项集扩展
-    for item in list(allItemName.keys())[patternInfor[1]:]:
-        if allItemName[item][0]:
+    for item in allItemList[0][patternInfor[1]:]:
+        index = allItemList[0].index(item)
+        if allItemList[1][index] > minau:
             # 得到newPattern
             newPattern = patternInfor[0][:sizeOfPattern-1]
             newPattern.append(patternInfor[0][sizeOfPattern-1][:])
@@ -284,7 +328,6 @@ def extendPattern(ListsTemp, minau):
             newPatternPosition = {}
             newPatternDeletePosition = {}
             itemPosition = dataTable[item]
-            indexOfItem = list(allItemName.keys()).index(item)
 
             # 可优化，同4
             itemSetExitInter = []
@@ -314,7 +357,9 @@ def extendPattern(ListsTemp, minau):
                         occurrencePosition = []
                         # 对每个序列的第一个项集进行查找对的位置
                         i = 0
-                        while flagWhile and newPatternPosition[patternIndex] and not oneOff(itemSetExitInter[i], newPatternPosition[patternIndex], newpatternAllPosition[i]):
+                        while flagWhile and newPatternPosition[patternIndex] and not oneOff(itemSetExitInter[i],
+                                                                                            newPatternPosition[patternIndex],
+                                                                                            newpatternAllPosition[i]):
                             newPatternDeletePosition[patternIndex][i].append(newpatternAllPosition[i][0])
                             newpatternAllPosition[i].pop(0)
                             if not newpatternAllPosition[i]:
@@ -349,7 +394,7 @@ def extendPattern(ListsTemp, minau):
                                 newpatternAllPosition[i].pop(0)
                                 i += 1
                         if flagWhile:
-                            # flagWhile = 1 ，走到这一步说明新模式在序列patternIndex中有一个完整的出现生成，并将其存入newPatternPosition[patternIndex]中
+                            # flagWhile = 1，走到这一步说明新模式在序列patternIndex中有一个完整的出现生成，并将其存入newPatternPosition[patternIndex]中
                             if not newPatternPosition[patternIndex]:
                                 newPatternPosition[patternIndex] = occurrencePosition
                             else:
@@ -360,107 +405,121 @@ def extendPattern(ListsTemp, minau):
                             # flagWhile = 0 表示生成完成一次性出现挖掘的过程未挖掘出完整的出现，此时需要将occurrencePosition和newpatternAllPosition中的位置存入newPatternDeletePosition[patternIndex]中
                             for itemSetNum in range(0, sizeOfPattern):
                                 if itemSetNum < len(occurrencePosition):
-                                    newPatternDeletePosition[patternIndex][itemSetNum] += newpatternAllPosition[itemSetNum] + occurrencePosition[itemSetNum]
+                                    newPatternDeletePosition[patternIndex][itemSetNum] += newpatternAllPosition[
+                                                                                              itemSetNum] + \
+                                                                                          occurrencePosition[itemSetNum]
                                 else:
-                                    newPatternDeletePosition[patternIndex][itemSetNum] += newpatternAllPosition[itemSetNum]
+                                    newPatternDeletePosition[patternIndex][itemSetNum] += newpatternAllPosition[
+                                        itemSetNum]
+
                     if not newPatternPosition[patternIndex]:
                         newPatternPosition.pop(patternIndex)
                     elif not newPatternPosition[patternIndex][0]:
                         newPatternPosition.pop(patternIndex)
             au = auCalculate(newPattern, newPatternPosition)
-            maub = maubCalculate(newPatternPosition)
-            if maub > minau:
-                if au > minau:
-                    minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
-                candidatePatternInforList.append([newPattern, indexOfItem + 1, newPatternPosition, maub, newPatternDeletePosition])
+            if au > minau:
+                minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
+                candidatePatternInforList.append(
+                    [newPattern, index + 1, newPatternPosition, au, newPatternDeletePosition])
                 candidatePatternNum += 1
+            else:
+                mtbv = mtb(newPattern, newPatternPosition)
+                if mtbv > minau:
+                    candidatePatternInforList.append(
+                        [newPattern, index + 1, newPatternPosition, au, newPatternDeletePosition, mtbv])
+                    candidatePatternNum += 1
+        else:
+            break
     return minau
 
 
-# 主算法
 def HATKMAIN():
     # 保存高平均效用模式
     # 初始化变量
-    global candidatePatternInforList, flag, minutal, candidatePatternNum
+    global candidatePatternNum
     ListsTemp = [[], []]
     minau = 0
+    for item in utilityTable.keys():
+        length = len(allUList[0])
+        index = 0
+        u = utilityTable[item]
+        while length > index and allUList[1][index] >= u:
+            index = index + 1
+        allUList[0].insert(index, item)
+        allUList[1].insert(index, u)
+    for item in utilityTable.keys():
+        position = dataTable[item]
+        mtbv = mtb([[item]], position)
+        length = len(allItemList[0])
+        index = 0
+        while length > index and allItemList[1][index] >= mtbv:
+            index = index + 1
+        allItemList[0].insert(index, item)
+        allItemList[1].insert(index, mtbv)
     # 生成1-长度的序列
-    for item in allItemName.keys():
-        deletePosition = {}
-        position = {}
-        for dt in dataTable[item]:
-            position[dt] = dataTable[item][dt]
-            deletePosition[dt] = [[]]
-        maub = maubCalculate(position)
-        allItemName[item] = [1, maub]
-        au = auCalculate([[item]], position)
-        if maub > minau:
+    for item in allItemList[0]:
+        index = allItemList[0].index(item)
+        mtbv = allItemList[1][index]
+        if mtbv > minau:
+            deletePosition = {}
+            position = {}
+            for dt in dataTable[item]:
+                position[dt] = dataTable[item][dt]
+                deletePosition[dt] = [[]]
+            au = auCalculate([[item]], position)
             if au > minau:
                 minau = saveTopkPattern([[item]], ListsTemp, au, minau)
-            candidatePatternInforList.append([[[item]], list(allItemName.keys()).index(item) + 1, position, maub, deletePosition])
+            candidatePatternInforList.append([[[item]], index + 1, position, au, deletePosition, mtbv])
             candidatePatternNum += 1
     # 模式增长，
     while candidatePatternInforList:
-        if flag and minutal < minau:
-            minutal = maxCode
-            for name in allItemName.keys():
-                if allItemName[name][0]:
-                    if allItemName[name][1] < minau:
-                        allItemName[name][0] = 0
-                    elif allItemName[name][1] < minutal:
-                            minutal = allItemName[name][1]
-            flag = 0
-        maub = candidatePatternInforList[0][3]
-        if maub >= minau:
+        au = candidatePatternInforList[0][3]
+
+        if au > minau:
             minau = extendPattern(ListsTemp, minau)
+        else:
+            if len(candidatePatternInforList[0]) == 6:
+                mtbv = candidatePatternInforList[0][5]
+            else:
+                mtbv = mtb(candidatePatternInforList[0][0], candidatePatternInforList[0][2])
+            if mtbv > minau:
+                minau = extendPattern(ListsTemp, minau)
         candidatePatternInforList.pop(0)
     return ListsTemp
 
-
 if __name__ == '__main__':
-
     # 小型例子
     # utilityTable = {"a": 6, "b": 1, "c": 5, "d": 2, "e": 4, "f": 3}
     # dataTable = {"a": {"1": [[1, 2, 3]], "2": [[1, 2]], "3": [[2, 3]], "4": [[1, 4]], "5": [[2]]}, "b": {"1": [[2, 3]], "2": [[2, 3]], "3": [[2, 3]], "4": [[2]], "5": [[1, 3]]}, "c": {"1": [[1, 2, 5]], "2": [[3]], "4": [[3, 4]], "5": [[3, 5]]}, "d": {"1": [[3]], "2": [[2, 3]], "3": [[3]], "4": [[3]], "5": [[2, 5]]}, "e": {"1": [[4]], "2": [[1, 3]], "4": [[2]], "5": [[1, 2, 3]]}, "f": {"1": [[5]], "3": [[1]], "5": [[4]]}}
     # utilityTable = {"a": 2.1, "b": 1.2}
     # dataTable = {"a": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}, "b": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}}
     # utilityTable = {"a": 10, "b": 5, "c": 8, "d": 3}
-    # dataTable = {"a": {"1": [[1, 2, 3, 5, 7]], "2": [[1, 2, 4, 6, 7]]},
-    #              "b": {"1": [[2, 3, 5, 8]], "2": [[2, 3, 5, 7]]},
-    #              "c": {"1": [[1, 3, 4, 7]], "2": [[3, 6]]},
-    #              "d": {"1": [[2, 4, 6, 8]], "2": [[2, 4, 5, 7]]}
+    # dataTable = {"a": {"1": [[1, 2, 3, 5, 6]], "2": [[1, 2, 3, 5, 7]], "3": [[1, 2, 3]], "4": [[1, 2, 4, 6]]},
+    #              "b": {"1": [[1, 2, 4, 5]], "2": [[2, 3, 5, 8]], "3": [[2, 3, 5, 6]], "4": [[2]]},
+    #              "c": {"2": [[2, 4, 5, 7]], "4": [[3, 4, 6]]},
+    #              "d": {"1": [[4]], "2": [[2, 4, 6, 8]], "3": [[1, 3, 4, 6]], "4": [[1, 2, 3, 5, 7]]}
     #              }
     # 数据库预处理
-    # utilityTable = DP.operateUtilityTableFile1()
-    # dataTable = DP.operateDataFile1(utilityTable)
+    utilityTable = DP.operateUtilityTableFile1()
+    dataTable = DP.operateDataFile1(utilityTable)
     # utilityTable = DP.operateUtilityTableFile2()
     # dataTable = DP.operateDataFile2(utilityTable)
-    utilityTable = DP.operateUtilityTableFile3()
-    dataTable = DP.operateDataFile3(utilityTable)
+    # utilityTable = DP.operateUtilityTableFile3()
+    # dataTable = DP.operateDataFile3(utilityTable)
 
-    # k值
-    kValue = 4
-    # kValue = len(utilityTable)
-
-    # candidatePatternInforList存储候选模式，及其信息：
-    # [模式pattern, 可进行I-扩展的元素, 模式pattern的出现位置信息, 模式pattern的平均效用, 最大平均效用上界maub, 模式pattern各项集未在一次性中使用的位置集合]
+    kValue = 2
     candidatePatternInforList = []
-    # allItemName 中存放字符集以及每个字符的maub值
-    # 可优化 deletedItemSet可以存入allItemName，用0,1表示是否可扩展
-    allItemName = utilityTable.copy()
-    # 存放字符集中不考虑扩展的字符集合
-    # deletedItemSet = []
 
-    maxCode = maxuCalculate()
-    flag = 0    # 纪录minau值是否改变
-    # 可优化：minutal可以不使用
-    minutal = 0     # 纪录字符集中可扩展的字符中maub的最小值
-    candidatePatternNum = 0     # 记录生成候选模式数量
+    allItemList = [[], []]
+    allUList = [[], []]
 
+
+    # maxCode = maxuCalculate()
+    candidatePatternNum = 0
     starTime = time.time()
     Lists = HATKMAIN()
     endTime = time.time()
-
-    print("生成的候选模式个数：" + str(candidatePatternNum))
-    print("运行时间：" + str(endTime * 1000-starTime * 1000) + "ms")
     print(Lists)
+    print("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms")
+    print("候选模式数量：" + str(candidatePatternNum))
+    # print(len(Lists[0]))

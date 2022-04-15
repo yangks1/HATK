@@ -134,8 +134,9 @@ def mtb(pattern, patternPosition):
         value = 0
         indexs = 0
         while allUList[1][i] > auv:
+            index = 0
             if sequenceId in dataTable[allUList[0][i]].keys():
-                index = 0
+
                 for j in dataTable[allUList[0][i]][sequenceId][0]:
                     if j > endIndex:
                         index += 1
@@ -522,4 +523,3 @@ if __name__ == '__main__':
     print(Lists)
     print("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms")
     print("候选模式数量：" + str(candidatePatternNum))
-    # print(len(Lists[0]))

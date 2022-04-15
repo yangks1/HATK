@@ -435,14 +435,14 @@ if __name__ == '__main__':
     #              "d": {"1": [[4]], "2": [[2, 4, 6, 8]], "3": [[1, 3, 4, 6]], "4": [[1, 2, 3, 5, 7]]}
     #              }
     # 数据库预处理
-    # utilityTable = DP.operateUtilityTableFile1()
-    # dataTable = DP.operateDataFile1(utilityTable)
-    utilityTable = DP.operateUtilityTableFile2()
-    dataTable = DP.operateDataFile2(utilityTable)
+    utilityTable = DP.operateUtilityTableFile1()
+    dataTable = DP.operateDataFile1(utilityTable)
+    # utilityTable = DP.operateUtilityTableFile2()
+    # dataTable = DP.operateDataFile2(utilityTable)
     # utilityTable = DP.operateUtilityTableFile3()
     # dataTable = DP.operateDataFile3(utilityTable)
 
-    kValue = 100
+    kValue = 2
     candidatePatternInforList = []
     candidatePatternNum = 0
     allItemList = [[], []]

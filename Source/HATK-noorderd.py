@@ -433,8 +433,6 @@ if __name__ == '__main__':
     # 数据库预处理
     # utilityTable = DP.operateUtilityTableFile1()
     # dataTable = DP.operateDataFile1(utilityTable)
-    # utilityTable = DP.operateUtilityTableFile2()
-    # dataTable = DP.operateDataFile2(utilityTable)
     # utilityTable = DP.operateUtilityTableFile3()
     # dataTable = DP.operateDataFile3(utilityTable)
 

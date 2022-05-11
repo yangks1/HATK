@@ -63,32 +63,6 @@ def auCalculate(p, pp):
     return au
 
 
-def maxuCalculate():
-    """
-    计算效用表中最大单个效用值
-
-    :return: 效用表中最大的效用值
-    """
-    maxUtility = 0
-    for item in utilityTable.keys():
-        if utilityTable[item] > maxUtility:
-            maxUtility = utilityTable[item]
-    return maxUtility
-
-
-def maubCalculate(patternPositionTemp):
-    """
-    计算最大平均效用上界maub
-
-    :param patternPositionTemp: 模式pattern的出现位置纪录
-    :return: maub（pattern）
-    """
-    supportValue = sc(patternPositionTemp)
-    maxUtilityOfOne = maxCode
-    maub = maxUtilityOfOne * supportValue
-    return maub
-
-
 def saveTopkPattern(pattern, ListsTemp, au, minau):
     lengthOfList = len(ListsTemp[0])
     if lengthOfList < kValue:
@@ -147,7 +121,6 @@ def mtb(pattern, patternPosition):
             num = indexs
     allu = uv + maxs
     mtbv = sc(patternPosition) * allu / (lenPattern(pattern) + num)
-
     return mtbv
 
 
@@ -175,7 +148,7 @@ def inter(seta, setb):
     :param setb:
     :return:
     """
-    return list(set(seta) & set(setb))
+    return sorted(list(set(seta) & set(setb)))
 
 
 def extendPattern(ListsTemp, minau):
@@ -496,10 +469,10 @@ if __name__ == '__main__':
     #              "d": {"1": [[4]], "2": [[2, 4, 6, 8]], "3": [[1, 3, 4, 6]], "4": [[1, 2, 3, 5, 7]]}
     #              }
     # 数据库预处理
-    utilityTable = DP.operateUtilityTableFile1()
-    dataTable = DP.operateDataFile1(utilityTable)
-    # utilityTable = DP.operateUtilityTableOnline2()
-    # dataTable = DP.operateOnline2(utilityTable)
+    # utilityTable = DP.operateUtilityTableFile1()
+    # dataTable = DP.operateDataFile1(utilityTable)
+    utilityTable = DP.operateUtilityTableOnline2()
+    dataTable = DP.operateOnline2(utilityTable)
     # dataTable, utilityTable = DP.operateMicroblogPCU(DP.operateUtilityTableMicroblogPCU())
     # utilityTable, dataTable = DP.opChainstore_utility()
     # dataTable, utilityTable = DP.operateSds1(DP.operateUTSds1())
@@ -509,7 +482,7 @@ if __name__ == '__main__':
 
     # print(len(u))
     # print(d)
-    kValue = 8
+    kValue = 2
     candidatePatternInforList = []
     #
     allItemList = [[], []]

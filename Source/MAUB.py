@@ -139,8 +139,8 @@ def inter(seta, setb):
     :param setb:
     :return:
     """
-    return list(set(seta) & set(setb))
 
+    return sorted(list(set(seta) & set(setb)))
 
 def extendPattern(ListsTemp, minau):
     """
@@ -446,7 +446,7 @@ if __name__ == '__main__':
     # dataTable, utilityTable = DP.operateSds3(DP.operateUTSds3())
     # dataTable, utilityTable = DP.operateSds4(DP.operateUTSds4())
 
-    kValue = 8
+    kValue = 2
     candidatePatternInforList = []
     candidatePatternNum = 0
     allItemList = [[], []]

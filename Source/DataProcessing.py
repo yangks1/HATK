@@ -445,6 +445,7 @@ def findUtility():
                     if "\n" in item:
                         item = item.replace("\n", '')
                     if item not in u.keys():
+
                         u[item] = random.randint(1, 100000)/10
     # print(u)
     with open("../Data/Sds1-utility.txt", "w") as l:

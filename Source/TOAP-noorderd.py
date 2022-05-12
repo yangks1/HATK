@@ -1,7 +1,5 @@
 import time
 
-from memory_profiler import memory_usage
-
 from Tool import DataProcessing as DP
 
 
@@ -470,13 +468,14 @@ if __name__ == '__main__':
             allItemList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            maxs = memory_usage(HATKMAIN, max_usage=True)
+            # maxs = memory_usage(HATKMAIN, max_usage=True)
+            HATKMAIN()
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
             with open("../Result/TOAP-noorder-result.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
+                # f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
                 f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
                 f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))

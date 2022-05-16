@@ -1,6 +1,8 @@
 import time
 from Tool import DataProcessing as DP
 from memory_profiler import memory_usage
+
+
 def utility(pattern):
     """
     :param pattern: 输入的需要计算的模式例如：[["1002", "1003"]["1004"]]
@@ -46,7 +48,6 @@ def sizePattern(pattern):
     :return: 模式pattern的大小：项集个数
     """
     return len(pattern)
-
 
 
 def auCalculate(pattern, patternPosition):
@@ -110,7 +111,7 @@ def saveTopkPattern(pattern, ListsTemp, au, minau):
             ListsTemp[1].insert(indexTemp, au)
             ListsTemp[0].pop()
             ListsTemp[1].pop()
-        minau = ListsTemp[1][kValue-1]
+        minau = ListsTemp[1][kValue - 1]
 
     return minau
 
@@ -186,7 +187,7 @@ def extendPattern(ListsTemp, minau):
                     此循环使得patternIndex遍历包含oldPattern的序列号
                     if语句确保oldPattern和itme出现在同一个序列中
                 '''
-                if patternIndex in itemPosition.keys():   # 确保pattern和新增加的元素在同一个序列中出现
+                if patternIndex in itemPosition.keys():  # 确保pattern和新增加的元素在同一个序列中出现
                     newPatternPosition[patternIndex] = []
                     newPatternDeletePosition[patternIndex] = []
                     for i in range(0, sizeOfPattern + 1):
@@ -194,7 +195,8 @@ def extendPattern(ListsTemp, minau):
                     # 生成新模式中各项集出现的所有位置集合
                     newpatternAllPosition = []
                     for itemSetNum in range(0, sizeOfPattern):
-                        newpatternAllPosition.append(oldPatternPosition[patternIndex][:][itemSetNum][:] + oldPatternDeletePosition[patternIndex][:][itemSetNum][:])
+                        newpatternAllPosition.append(oldPatternPosition[patternIndex][:][itemSetNum][:] +
+                                                     oldPatternDeletePosition[patternIndex][:][itemSetNum][:])
                     newpatternAllPosition.append(itemPosition[patternIndex][0][:])
 
                     flagWhile = 1
@@ -203,7 +205,10 @@ def extendPattern(ListsTemp, minau):
 
                         # 对每个序列的第一个项集进行查找可以使用的位置
                         i = 0
-                        while flagWhile and newPatternPosition[patternIndex] and not oneOff(itemSetExitInter[i], newPatternPosition[patternIndex], newpatternAllPosition[i]):
+                        while flagWhile and newPatternPosition[patternIndex] and not oneOff(itemSetExitInter[i],
+                                                                                            newPatternPosition[
+                                                                                                patternIndex],
+                                                                                            newpatternAllPosition[i]):
                             newPatternDeletePosition[patternIndex][i].append(newpatternAllPosition[i][0])
                             newpatternAllPosition[i].pop(0)
                             if not newpatternAllPosition[i]:
@@ -218,14 +223,17 @@ def extendPattern(ListsTemp, minau):
                         while flagWhile and i < sizeOfPattern + 1:
                             if newpatternAllPosition[i]:
                                 if newPatternPosition[patternIndex]:
-                                    while flagWhile and (newpatternAllPosition[i][0] <= occurrencePosition[i-1][0] or not oneOff(itemSetExitInter[i], newPatternPosition[patternIndex], newpatternAllPosition[i])):
+                                    while flagWhile and (
+                                            newpatternAllPosition[i][0] <= occurrencePosition[i - 1][0] or not oneOff(
+                                            itemSetExitInter[i], newPatternPosition[patternIndex],
+                                            newpatternAllPosition[i])):
                                         newPatternDeletePosition[patternIndex][i].append(newpatternAllPosition[i][0])
                                         newpatternAllPosition[i].pop(0)
                                         if not newpatternAllPosition[i]:
                                             # 若第i+1个项集没有可扩展的位置时，flagWhile = 0
                                             flagWhile = 0
                                 else:
-                                    while flagWhile and newpatternAllPosition[i][0] <= occurrencePosition[i-1][0]:
+                                    while flagWhile and newpatternAllPosition[i][0] <= occurrencePosition[i - 1][0]:
                                         newPatternDeletePosition[patternIndex][i].append(newpatternAllPosition[i][0])
                                         newpatternAllPosition[i].pop(0)
                                         if not newpatternAllPosition[i]:
@@ -245,19 +253,23 @@ def extendPattern(ListsTemp, minau):
                                 newPatternPosition[patternIndex] = occurrencePosition
                             else:
                                 for j in range(0, sizeOfPattern + 1):
-                                    newPatternPosition[patternIndex][j] = newPatternPosition[patternIndex][j] + occurrencePosition[j]
+                                    newPatternPosition[patternIndex][j] = newPatternPosition[patternIndex][j] + \
+                                                                          occurrencePosition[j]
                         else:
                             # flagWhile = 0 表示生成完成一次性出现挖掘的过程未挖掘出完整的出现，此时需要将occurrencePosition和newpatternAllPosition中的位置存入newPatternDeletePosition[patternIndex]中
-                            for itemSetNum in range(0, sizeOfPattern+1):
+                            for itemSetNum in range(0, sizeOfPattern + 1):
                                 if itemSetNum < len(occurrencePosition):
-                                    newPatternDeletePosition[patternIndex][itemSetNum] += newpatternAllPosition[itemSetNum] + \
+                                    newPatternDeletePosition[patternIndex][itemSetNum] += newpatternAllPosition[
+                                                                                              itemSetNum] + \
                                                                                           occurrencePosition[itemSetNum]
                                 else:
                                     newPatternDeletePosition[patternIndex][itemSetNum] += newpatternAllPosition[
                                         itemSetNum]
                     for itemsIndex in range(0, sizePattern(newPattern)):
                         if newpatternAllPosition[itemsIndex]:
-                            newPatternDeletePosition[patternIndex][itemsIndex] = sorted(list(set(newpatternAllPosition[itemsIndex]).union(set(newPatternDeletePosition[patternIndex][itemsIndex]))))
+                            newPatternDeletePosition[patternIndex][itemsIndex] = sorted(list(
+                                set(newpatternAllPosition[itemsIndex]).union(
+                                    set(newPatternDeletePosition[patternIndex][itemsIndex]))))
                     if not newPatternPosition[patternIndex]:
                         newPatternPosition.pop(patternIndex)
                         newPatternDeletePosition.pop(patternIndex)
@@ -279,9 +291,9 @@ def extendPattern(ListsTemp, minau):
         index = allItemList[0].index(item)
         if allItemList[1][index] >= minau:
             # 得到newPattern
-            newPattern = patternInfor[0][:sizeOfPattern-1]
-            newPattern.append(patternInfor[0][sizeOfPattern-1][:])
-            newPattern[sizeOfPattern-1].append(item)
+            newPattern = patternInfor[0][:sizeOfPattern - 1]
+            newPattern.append(patternInfor[0][sizeOfPattern - 1][:])
+            newPattern[sizeOfPattern - 1].append(item)
 
             newPatternPosition = {}
             newPatternDeletePosition = {}
@@ -316,7 +328,8 @@ def extendPattern(ListsTemp, minau):
                         # 对每个序列的第一个项集进行查找对的位置
                         i = 0
                         while flagWhile and newPatternPosition[patternIndex] and not oneOff(itemSetExitInter[i],
-                                                                                            newPatternPosition[patternIndex],
+                                                                                            newPatternPosition[
+                                                                                                patternIndex],
                                                                                             newpatternAllPosition[i]):
                             newPatternDeletePosition[patternIndex][i].append(newpatternAllPosition[i][0])
                             newpatternAllPosition[i].pop(0)
@@ -332,8 +345,8 @@ def extendPattern(ListsTemp, minau):
                                 if newPatternPosition[patternIndex]:
                                     while flagWhile and (
                                             newpatternAllPosition[i][0] <= occurrencePosition[i - 1][0] or not oneOff(
-                                            itemSetExitInter[i], newPatternPosition[patternIndex],
-                                            newpatternAllPosition[i])):
+                                        itemSetExitInter[i], newPatternPosition[patternIndex],
+                                        newpatternAllPosition[i])):
                                         newPatternDeletePosition[patternIndex][i].append(newpatternAllPosition[i][0])
                                         newpatternAllPosition[i].pop(0)
                                         if not newpatternAllPosition[i]:
@@ -371,7 +384,9 @@ def extendPattern(ListsTemp, minau):
                                         itemSetNum]
                     for itemsIndex in range(0, sizePattern(newPattern)):
                         if newpatternAllPosition[itemsIndex]:
-                            newPatternDeletePosition[patternIndex][itemsIndex] = sorted(list(set(newpatternAllPosition[itemsIndex]).union(set(newPatternDeletePosition[patternIndex][itemsIndex]))))
+                            newPatternDeletePosition[patternIndex][itemsIndex] = sorted(list(
+                                set(newpatternAllPosition[itemsIndex]).union(
+                                    set(newPatternDeletePosition[patternIndex][itemsIndex]))))
                     if not newPatternPosition[patternIndex]:
                         newPatternPosition.pop(patternIndex)
                     elif not newPatternPosition[patternIndex][0]:
@@ -426,24 +441,24 @@ def HATKMAIN():
         cPIL.pop(0)
     return ListsTemp
 
+
+"""['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],"""
 if __name__ == '__main__':
-    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
-          ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-          ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
-          ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
-          ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
-          ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt']]
-    """['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-    ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-    ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-    ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']"""
-    kL = [100, 200, 500, 1000, 1500,2000, 25000, 3000]
+    fn = [['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
+        ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
+        ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
+        ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
+        ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
+        ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
+        ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
+        """['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
+          ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
+          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
+          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']"""]
+    kL = [500, 1000, 1500, 2000, 25000, 3000]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):
-
             utilityTable = DP.operateUtilityTableFile1(fn[i][0])
             dataTable = DP.operateDataFile1(utilityTable, fn[i][1])
             maxCode = maxuCalculate()
@@ -453,10 +468,10 @@ if __name__ == '__main__':
             allUList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            maxs = memory_usage((HATKMAIN), max_usage=True)
+            maxs = memory_usage(HATKMAIN, max_usage=True)
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
-            with open("../Result/MAUB-result.txt", 'a') as f:
+            with open("../Result/MAUB-result1.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
                 f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")

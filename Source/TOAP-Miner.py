@@ -454,6 +454,12 @@ def HATKMAIN():
         cPIL.pop(0)
     return None
 
+
+"""    ,
+    ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
+    ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
+    ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
+    ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']"""
 if __name__ == '__main__':
     fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
           ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
@@ -462,12 +468,9 @@ if __name__ == '__main__':
           ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
           ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
           ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
-          ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-          ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
-    kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
+          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt']]
+
+    kL = [100, 200, 500, 1000, 1500, 2000, 25000, 3000]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):

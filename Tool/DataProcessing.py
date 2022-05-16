@@ -51,6 +51,28 @@ def operateDataFile1(utilityTable, fn):  # 处理序列数据库
     return dataTableTemp
 
 
+def operateDataFile2(fn):  # 处理序列数据库
+    dataTableTemp = []
+    with open(fn, 'r') as f2:
+        sequenceid = 0
+        for sequence in f2.readlines():
+            dataTableTemp.append([])
+            sequence = sequence.split("\n")[0]
+            sequenceL = sequence.split("-1")
+            itemsetid = 0
+            for itemset in sequenceL:
+                dataTableTemp[sequenceid].append([])
+                itemsetL = itemset.split(" ")
+                for item in itemsetL:
+                    if item and item != '-':
+                        dataTableTemp[sequenceid][itemsetid].append(item)
+                if dataTableTemp[sequenceid][itemsetid] is None:
+                    dataTableTemp[sequenceid].pop(itemsetid)
+                itemsetid += 1
+            if dataTableTemp[sequenceid] is None:
+                dataTableTemp.pop(sequenceid)
+            sequenceid += 1
+    return dataTableTemp
 
 
 def findUtility():
@@ -72,10 +94,10 @@ def findUtility():
 
 if __name__ == '__main__':
 
-    str1 = "../Data/chainstoreUtility.txt"
+    # str1 = "../Data/chainstoreUtility.txt"
     str2 = "../Data/chainstore.txt"
-    c = operateUtilityTableFile1(str1)
-    b = operateDataFile1(c, str2)
+    # c = operateUtilityTableFile1(str1)
+    b = operateDataFile2(str2)
     print(b)
 
 

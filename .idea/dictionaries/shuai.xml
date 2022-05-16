@@ -3,8 +3,12 @@
     <words>
       <w>chainstore</w>
       <w>indexs</w>
+      <w>itemset</w>
+      <w>itemsetid</w>
       <w>microblog</w>
       <w>msub</w>
+      <w>pminer</w>
+      <w>sequenceid</w>
       <w>toap</w>
     </words>
   </dictionary>

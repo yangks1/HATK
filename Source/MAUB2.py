@@ -427,19 +427,11 @@ def HATKMAIN():
     return ListsTemp
 
 if __name__ == '__main__':
-    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
-          ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-          ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
-          ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
-          ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
-          ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt']]
-    """['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-    ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-    ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-    ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']"""
-    kL = [100, 200, 500, 1000, 1500,2000, 25000, 3000]
+    fn = [['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
+          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
+          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
+
+    kL = [10, 50, 100, 200, 500, 1000, 1500,2000, 25000, 3000]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):
@@ -456,7 +448,7 @@ if __name__ == '__main__':
             maxs = memory_usage((HATKMAIN), max_usage=True)
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
-            with open("../Result/MAUB-result.txt", 'a') as f:
+            with open("../Result/MAUB-result2.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
                 f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")

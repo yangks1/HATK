@@ -2,7 +2,7 @@ import time
 
 from Tool import DataProcessing as DP
 
-
+from memory_profiler import memory_usage
 def utility(pattern):
     """
     :param pattern: 输入的需要计算的模式例如：[["1002", "1003"]["1004"]]
@@ -468,19 +468,19 @@ if __name__ == '__main__':
             allItemList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            # maxs = memory_usage(HATKMAIN, max_usage=True)
-            HATKMAIN()
+            maxs = memory_usage(HATKMAIN, max_usage=True)
+            # HATKMAIN()
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
+            print("最大内存使用：" + str(maxs) + "Mb" + "\n")
             with open("../Result/TOAP-noorder-result.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                # f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
+                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
                 f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
                 f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))
 
-    #
     # # utilityTable = {"a": 6, "b": 1, "c": 5, "d": 2, "e": 4, "f": 3}
     # # dataTable = {"a": {"1": [[1, 2, 3]], "2": [[1, 2]], "3": [[2, 3]], "4": [[1, 4]], "5": [[2]]},
     # #              "b": {"1": [[2, 3]], "2": [[2, 3]], "3": [[2, 3]], "4": [[2]], "5": [[1, 3]]},

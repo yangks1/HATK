@@ -445,24 +445,25 @@ def HATKMAIN():
         cPIL.pop(0)
     return ListsTemp
 
+    # fn = [['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
+    #       ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
+    #       ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
+    #       ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
+    #       ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt']]
+    # kL = [[2, 5, 10, 50, 100, 200, 500],
+    #       [2, 4, 8, 16, 32, 64, 128],
+    #       [2, 4, 6, 8, 10, 12, 14, 16],
+    #       [10, 20, 30, 40, 50, 60, 70],
+    #       [5, 10, 20, 40, 80, 160, 320]]
+
 
 if __name__ == '__main__':
-    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
-          ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-          ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
-          ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
-          ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
-          ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
-          ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-          ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
-    kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
+    fn = [['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt']]
+
+    kL = [[1]]
     kValue = 0
-    for kValue in kL:
-        for i in range(0, len(fn)):
+    for i in range(0, len(fn)):
+        for kValue in kL[i]:
             utilityTable = DP.operateUtilityTableFile1(fn[i][0])
             dataTable = DP.operateDataFile1(utilityTable, fn[i][1])
             cPIL = []
@@ -473,42 +474,8 @@ if __name__ == '__main__':
             maxs = memory_usage(HATKMAIN, max_usage=True)
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
-            with open("../Result/TOAP-noorder-result.txt", 'a') as f:
+            with open("../Result/TOAP-result1.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
-                f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
-                f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
+                f.write(str(int(maxs)) + "\t" + str((endTime - starTime)) + "\t" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))
-
-    #
-    # # utilityTable = {"a": 6, "b": 1, "c": 5, "d": 2, "e": 4, "f": 3}
-    # # dataTable = {"a": {"1": [[1, 2, 3]], "2": [[1, 2]], "3": [[2, 3]], "4": [[1, 4]], "5": [[2]]},
-    # #              "b": {"1": [[2, 3]], "2": [[2, 3]], "3": [[2, 3]], "4": [[2]], "5": [[1, 3]]},
-    # #              "c": {"1": [[1, 2, 5]], "2": [[3]], "4": [[3, 4]], "5": [[3, 5]]},
-    # #              "d": {"1": [[3]], "2": [[2, 3]], "3": [[3]], "4": [[3]], "5": [[2, 5]]},
-    # #              "e": {"1": [[4]], "2": [[1, 3]], "4": [[2]], "5": [[1, 2, 3]]},
-    # #              "f": {"1": [[5]], "3": [[1]], "5": [[4]]}}
-    # utilityTable = {"a": 2.1, "b": 1.2}
-    # dataTable = {"a": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}, "b": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}}
-    # # utilityTable = {"a": 10, "b": 5, "c": 8, "d": 3}
-    # # dataTable = {"a": {"1": [[1, 2, 3, 5, 6]], "2": [[1, 2, 3, 5, 7]], "3": [[1, 2, 3]], "4": [[1, 2, 4, 6]]},
-    # #              "b": {"1": [[1, 2, 4, 5]], "2": [[2, 3, 5, 8]], "3": [[2, 3, 5, 6]], "4": [[2]]},
-    # #              "c": {"2": [[2, 4, 5, 7]], "4": [[3, 4, 6]]},
-    # #              "d": {"1": [[4]], "2": [[2, 4, 6, 8]], "3": [[1, 3, 4, 6]], "4": [[1, 2, 3, 5, 7]]}
-    # #              }
-    # kValue = 10
-    # cPIL = []
-    # ListsTemp = [[], []]
-    # allItemList = [[], []]
-    # allUList = [[], []]
-    # candidatePatternNum = 0
-    # starTime = time.time()
-    # maxs = memory_usage((HATKMAIN), max_usage=True)
-    # # Lists = HATKMAIN()
-    # endTime = time.time()
-    # # print("k = " + str(kValue) + ", " + fnd[i])
-    # print("最大内存使用：" + str(maxs) + "Mb")
-    # print("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms")
-    # print("候选模式数量：" + str(candidatePatternNum))
-    # print(str(ListsTemp))

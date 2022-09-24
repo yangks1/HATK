@@ -77,53 +77,25 @@ def sc(p):
 
 def auCalculate(pattern):
     supportValue = sc(pattern)
-    msub = mtb(pattern)
+    maxUtilityOfOne = maxu
+    maub = maxUtilityOfOne * supportValue
     utilityValue = utility(pattern)
     length = lenPattern(pattern)
     averageUtility = (supportValue * utilityValue) / length
-    return averageUtility, msub
+    return averageUtility, maub
 
 
-def mtb(p):
-    uv = utility(p)
-    auv = uv / lenPattern(p)
-    maxs = 0
-    num = 0
-    for s in dataTable:
-        position = []
-        flag = 1
-        i = 0
-        u = 0
-        while i < len(s):
-            j = 0
-            while j < len(p) and i < len(s):
-                if set(p[j]).issubset(set(s[i])):
-                    position.append(i)
-                    j += 1
-                    i += 1
-                else:
-                    i += 1
-            if j == len(p):
-                break
-            else:
-                flag = 0
-                break
-        if not flag:
-            continue
-        i = position[-1] + 1
-        num1 = 0
-        while i < len(s):
-            for k in s[i]:
-                if utilityTable[k] > auv:
-                    u += utilityTable[k]
-                    num1 += 1
-            i += 1
-        if u > maxs:
-            maxs = u
-            num = num1
-    allu = uv + maxs
-    mtbv = sc(p) * allu / (lenPattern(p) + num)
-    return mtbv
+def maxuCalculate():
+    """
+    计算效用表中最大单个效用值
+
+    :return: 效用表中最大的效用值
+    """
+    maxUtility = 0
+    for item in utilityTable.keys():
+        if utilityTable[item] > maxUtility:
+            maxUtility = utilityTable[item]
+    return maxUtility
 
 
 def saveTopkPattern(pattern, au):
@@ -161,11 +133,11 @@ def EP():
         newPattern.append([item])
         # print(newPattern)
         candidatePatternNum += 1
-        au, msub = auCalculate(newPattern)
-        if msub > minau:
+        au, maub = auCalculate(newPattern)
+        if maub > minau:
             if au > minau:
                 saveTopkPattern(newPattern, au)
-            cPIL.append([newPattern, index, msub])
+            cPIL.append([newPattern, index, maub])
     # 项集扩展
     for item in allItemList[0][patternInfor[1]:]:
         index = allItemList[0].index(item) + 1
@@ -175,11 +147,11 @@ def EP():
         # print(newPattern)
         #
         candidatePatternNum += 1
-        au, msub = auCalculate(newPattern)
-        if msub > minau:
+        au, maub = auCalculate(newPattern)
+        if maub > minau:
             if au > minau:
                 saveTopkPattern(newPattern, au)
-            cPIL.append([newPattern, index, msub])
+            cPIL.append([newPattern, index, maub])
 
 
 def TOAPminer():
@@ -200,21 +172,19 @@ def TOAPminer():
         index = allItemList[0].index(item) + 1
         candidatePatternNum += 1
         pattern = [[item]]
-        au, msub = auCalculate(pattern)
-        if msub > minau:
+        au, maub = auCalculate(pattern)
+        if maub > minau:
             if au > minau:
                 saveTopkPattern(pattern, au)
-            cPIL.append([pattern, index, msub])
+            cPIL.append([pattern, index, maub])
     while cPIL:
-        msub = cPIL[0][2]
-        if msub > minau:
+        maub = cPIL[0][2]
+        if maub > minau:
             EP()
         cPIL.pop(0)
 
-"""['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],"""
-if __name__ == '__main__':
-    fn = [
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
+
+"""['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
           ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
           ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
           ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
@@ -224,13 +194,16 @@ if __name__ == '__main__':
           ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
           ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
           ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
+          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']"""
+if __name__ == '__main__':
+    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt']]
     kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):
             utilityTable = DP.operateUtilityTableFile1(fn[i][0])
             dataTable = DP.operateDataFile2(fn[i][1])
+            maxu = maxuCalculate()
             cPIL = []
             minau = 0
             ListsTemp = [[], []]
@@ -240,29 +213,8 @@ if __name__ == '__main__':
             maxs = memory_usage(TOAPminer, max_usage=True)
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
-            with open("../Result/TOAP-noorder-result.txt", 'a') as f:
+            with open("../Result/TOAP-Original.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
-                f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
-                f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
+                f.write(str(maxs) + "\t" + str(endTime - starTime) + "\t" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))
-
-    # utilityTable = {"a": 2.1, "b": 1.2}
-    # dataTable = [[["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"], ["a", "b"]]]
-    # kValue = 10
-    # minau = 0
-    # cPIL = []
-    # ListsTemp = [[], []]
-    # allItemList = [[], []]
-    # allUList = [[], []]
-    # candidatePatternNum = 0
-    # starTime = time.time()
-    # maxs = memory_usage(TOAPminer, max_usage=True)
-    # # Lists = TOAPminer()
-    # endTime = time.time()
-    # # print("k = " + str(kValue) + ", " + fnd[i])
-    # print("最大内存使用：" + str(maxs) + "Mb")
-    # print("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms")
-    # print("候选模式数量：" + str(candidatePatternNum))
-    # print(str(ListsTemp))

@@ -427,21 +427,11 @@ def HATKMAIN():
         cPIL.pop(0)
     return ListsTemp
 
+
 if __name__ == '__main__':
     # 数据库预处理
-    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
-          ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-          ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
-          ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
-          ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
-          ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
-          ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-          ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
-    kL = [1500, 2000, 25000, 3000]
+    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt']]
+    kL = [800]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):
@@ -459,8 +449,5 @@ if __name__ == '__main__':
             with open("../Result/TOAP-nostore-result1.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
-                f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
-                f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
+                f.write(str(maxs) + "\t" + str(endTime - starTime) + "\t" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))
-

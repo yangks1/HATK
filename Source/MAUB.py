@@ -453,7 +453,7 @@ if __name__ == '__main__':
             allUList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            maxs = memory_usage((HATKMAIN), max_usage=True)
+            maxs = memory_usage(HATKMAIN, max_usage=True)
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
             with open("../Result/MAUB-result.txt", 'a') as f:

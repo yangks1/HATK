@@ -485,12 +485,10 @@ if __name__ == '__main__':
             maxs = memory_usage(HATKMAIN, max_usage=True)
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
-            with open("../Result/TOAP-result.txt", 'a') as f:
+            with open("../Result/TOAP-Ordered.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------" + "\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
-                f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
-                f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
+                f.write(str(maxs) + "\t" + str(endTime - starTime) + "\t" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))
 
     # utilityTable = DP.operateUtilityTableFile1("../Data/chainstoreUtility.txt")

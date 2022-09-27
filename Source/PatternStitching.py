@@ -105,7 +105,7 @@ def mtb(pattern, patternPosition):
     return mtbv
 
 
-def saveTopkPattern(pattern, listsTemp, au, minau):
+def saveTopkPattern(pattern, au, minau):
     """
 
     :type listsTemp: list
@@ -172,14 +172,56 @@ def twoToMore(L2, flag, minau):
     return L3, flag, minau
 
 
+def OSC(position1, deletePosition1, position2, deletePosition2):
+    newPatternPosition = {}
+    newPatternDeletePosition = {}
+    return newPatternPosition, newPatternDeletePosition
+
+
 def oneToTwo(L1, minau):
+    global candidatePatternNum
+    len1 = len(L1)
     L2 = []
+    for i in range(0, len1):
+        if L1[i][3] > minau:
+            p1 = L1[i][0]
+            position1 = L1[i][2]
+            deletePosition1 = L1[i][4]
+            for j in range(0, len1):
+                if L1[j][3] > minau:
+                    p2 = L1[j][0]
+                    position2 = L1[j][2]
+                    deletePosition2 = L1[j][4]
+                     # 相等的时候，一种情况(a)(b); (a)(a),直接拼接
+                    newPattern = [p1[0], p2[0]]
+                    candidatePatternNum += 1
+                    newPatternPosition, newPatternDeletePosition= OSC(position1, deletePosition1, position2, deletePosition2)
+                    sup = sc(newPatternPosition)
+                    au = auCalculate(newPattern, newPatternPosition)
+                    msub = mtb(newPattern, newPatternPosition)
+                    if msub > minau:
+                        if au > minau:
+                            minau = saveTopkPattern(newPattern, au, minau)
+                        L2.append([newPattern, newPatternPosition, msub, newPatternDeletePosition])
+                    if i > j:  # 不相等的时候，存在相集扩展
+                        p3 = [[p1[0][0],p1[0][0]]]
+                        candidatePatternNum += 1
+                        newPatternPosition, newPatternDeletePosition = OSC(position1, deletePosition1, position2, deletePosition2)
+                        sup = sc(newPatternPosition)
+                        au = auCalculate(newPattern, newPatternPosition)
+                        msub = mtb(newPattern, newPatternPosition)
+                        if msub > minau:
+                            if au > minau:
+                                minau = saveTopkPattern(newPattern, au, minau)
+                            L2.append([newPattern, newPatternPosition, msub, newPatternDeletePosition])
     return L2, minau
 
 
 def HATKMAIN():
-    # 保存高平均效用模式
-    # 初始化变量
+    """
+
+    :return:
+    """
     global allItemList, candidatePatternNum, listsTemp
     L = []
     minau = 0
@@ -199,49 +241,47 @@ def HATKMAIN():
         msub = mtb([[item]], position)
         if msub > minau:
             if au > minau:
-                minau = saveTopkPattern([[item]], listsTemp, au, minau)
+                minau = saveTopkPattern([[item]], au, minau)
             L.append([[[item]], list(utilityTable.keys()).index(item) + 1, position, msub, deletePosition])
     L, minau = oneToTwo(L, minau)
     flag = 1
     while flag:
         L, flag, minau = twoToMore(L, flag, minau)
 
-    return listsTemp
-
 
 if __name__ == '__main__':
-    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
-          ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-          ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
-          ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
-          ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
-          ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
-          ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-          ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
-    kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
-    kValue = 1
-    for kValue in kL:
-        for i in range(0, len(fn)):
-            utilityTable = DP.operateUtilityTableFile1(fn[i][0])
-            dataTable = DP.operateDataFile1(utilityTable, fn[i][1])
-            listsTemp = [[], []]
-            allItemList = [[], []]
-            candidatePatternNum = 0
-            starTime = time.time()
-            maxs = memory_usage(HATKMAIN, max_usage=True)
-            endTime = time.time()
-            print("k = " + str(kValue) + ", " + fn[i][1])
-            with open("../Result/TOAP-noorder-result.txt", 'a') as f:
-                f.write("\n----------------------------------------------------------------------\n")
-                f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
-                f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
-                f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
-                f.write(str(listsTemp))
+    # fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
+    #       ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
+    #       ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
+    #       ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
+    #       ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
+    #       ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
+    #       ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
+    #       ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
+    #       ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
+    #       ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
+    #       ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
+    #       ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
+    # kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
+    # kValue = 1
+    # for kValue in kL:
+    #     for i in range(0, len(fn)):
+    #         utilityTable = DP.operateUtilityTableFile1(fn[i][0])
+    #         dataTable = DP.operateDataFile1(utilityTable, fn[i][1])
+    #         listsTemp = [[], []]
+    #         allItemList = [[], []]
+    #         candidatePatternNum = 0
+    #         starTime = time.time()
+    #         maxs = memory_usage(HATKMAIN, max_usage=True)
+    #         endTime = time.time()
+    #         print("k = " + str(kValue) + ", " + fn[i][1])
+    #         with open("../Result/TOAP-noorder-result.txt", 'a') as f:
+    #             f.write("\n----------------------------------------------------------------------\n")
+    #             f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
+    #             f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
+    #             f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
+    #             f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
+    #             f.write(str(listsTemp))
 
     #
     # # utilityTable = {"a": 6, "b": 1, "c": 5, "d": 2, "e": 4, "f": 3}
@@ -251,26 +291,26 @@ if __name__ == '__main__':
     # #              "d": {"1": [[3]], "2": [[2, 3]], "3": [[3]], "4": [[3]], "5": [[2, 5]]},
     # #              "e": {"1": [[4]], "2": [[1, 3]], "4": [[2]], "5": [[1, 2, 3]]},
     # #              "f": {"1": [[5]], "3": [[1]], "5": [[4]]}}
-    # utilityTable = {"a": 2.1, "b": 1.2}
-    # dataTable = {"a": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}, "b": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}}
+    utilityTable = {"a": 2.1, "b": 1.2}
+    dataTable = {"a": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}, "b": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}}
     # # utilityTable = {"a": 10, "b": 5, "c": 8, "d": 3}
     # # dataTable = {"a": {"1": [[1, 2, 3, 5, 6]], "2": [[1, 2, 3, 5, 7]], "3": [[1, 2, 3]], "4": [[1, 2, 4, 6]]},
     # #              "b": {"1": [[1, 2, 4, 5]], "2": [[2, 3, 5, 8]], "3": [[2, 3, 5, 6]], "4": [[2]]},
     # #              "c": {"2": [[2, 4, 5, 7]], "4": [[3, 4, 6]]},
     # #              "d": {"1": [[4]], "2": [[2, 4, 6, 8]], "3": [[1, 3, 4, 6]], "4": [[1, 2, 3, 5, 7]]}
     # #              }
-    # kValue = 10
-    # cPIL = []
-    # ListsTemp = [[], []]
-    # allItemList = [[], []]
-    # allUList = [[], []]
-    # candidatePatternNum = 0
-    # starTime = time.time()
-    # maxs = memory_usage((HATKMAIN), max_usage=True)
-    # # Lists = HATKMAIN()
-    # endTime = time.time()
-    # # print("k = " + str(kValue) + ", " + fnd[i])
-    # print("最大内存使用：" + str(maxs) + "Mb")
-    # print("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms")
-    # print("候选模式数量：" + str(candidatePatternNum))
-    # print(str(ListsTemp))
+    kValue = 10
+    cPIL = []
+    listsTemp = [[], []]
+    allItemList = [[], []]
+    allUList = [[], []]
+    candidatePatternNum = 0
+    starTime = time.time()
+    maxs = memory_usage((HATKMAIN), max_usage=True)
+    # Lists = HATKMAIN()
+    endTime = time.time()
+    # print("k = " + str(kValue) + ", " + fnd[i])
+    print("最大内存使用：" + str(maxs) + "Mb")
+    print("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms")
+    print("候选模式数量：" + str(candidatePatternNum))
+    print(str(listsTemp))

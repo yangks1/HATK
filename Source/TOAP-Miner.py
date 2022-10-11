@@ -1,6 +1,6 @@
 import time
 from Tool import DataProcessing as DP
-from memory_profiler import memory_usage
+# from memory_profiler import memory_usage
 def utility(p):
     """
     :param p: 输入的需要计算的模式例如：[["1002", "1003"]["1004"]]
@@ -467,25 +467,30 @@ if __name__ == '__main__':
           ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
           ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
           ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
+
+
+
     kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):
             utilityTable = DP.operateUtilityTableFile1(fn[i][0])
             dataTable = DP.operateDataFile1(utilityTable, fn[i][1])
+
             cPIL = []
             ListsTemp = [[], []]
             allItemList = [[], []]
             allUList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            maxs = memory_usage(HATKMAIN, max_usage=True)
+            HATKMAIN()
+            # maxs = memory_usage(HATKMAIN, max_usage=True)
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
             with open("../Result/TOAP-result.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------" + "\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
+                # f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
                 f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
                 f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))
@@ -507,15 +512,20 @@ if __name__ == '__main__':
     #              "c": {"2": [[2, 4, 5, 7]], "4": [[3, 4, 6]]},
     #              "d": {"1": [[4]], "2": [[2, 4, 6, 8]], "3": [[1, 3, 4, 6]], "4": [[1, 2, 3, 5, 7]]}
     #              }
-    # kValue = 10
+    # utilityTable = {"a": 10, "b": 5, "c": 8, "d": 3}
+    # dataTable = {"a": {"1": [[1, 3, 4, 5, 6]], "2": [[1, 3, 4, 5, 6]], "3": [[1, 2, 3, 4, 6]], "4": [[1, 2, 3, 4, 6]], "5": [[2, 5]]},
+    #              "b": {"1": [[1, 3, 4, 6]], "2": [[1, 2, 3, 4, 6]], "3": [[2, 3, 4]], "4": [[1, 2, 3, 7]], "5": [[6, 7]]},
+    #              "c": {"1": [[2, 3, 4, 5]], "2": [[1, 2, 3, 5]], "3": [[1, 3, 5, 6]], "4": [[2, 4, 5, 6]], "5": [[1, 3, 8]]},
+    #              "d": {"1": [[5]], "2": [[2, 4, 5, 7]], "3": [[3, 5]], "4": [[1, 3, 4, 5]], "5": [[4]]}}
+    # kValue = 8
     # cPIL = []
     # ListsTemp = [[], []]
     # allItemList = [[], []]
     # allUList = [[], []]
     # candidatePatternNum = 0
     # starTime = time.time()
-    # maxs = memory_usage(HATKMAIN, max_usage=True)
-    # # HATKMAIN()
+    # # maxs = memory_usage(HATKMAIN, max_usage=True)
+    # HATKMAIN()
     # endTime = time.time()
     # # print("k = " + str(kValue) + ", " + fnd[i])
     # # print("最大内存使用：" + str(maxs) + "Mb")

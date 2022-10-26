@@ -77,7 +77,7 @@ def operateDataFile2(fn):  # 处理序列数据库
 
 def findUtility():
     u = {}
-    with open("../Data/Sds1.txt", 'r') as f2:
+    with open("../Data-remain/Sds1.txt", 'r') as f2:
         for sequences in f2.readlines():
             sequence = sequences.split(' ')
             for item in sequence:
@@ -88,7 +88,7 @@ def findUtility():
                     if item not in u.keys():
                         u[item] = random.randint(1, 100000)/10
     # print(u)
-    with open("../Data/Sds1-utility.txt", "w") as l:
+    with open("../Data-remain/Sds1-utility.txt", "w") as l:
         for i in u.keys():
             l.write(i + "\t" + str(u[i]) + "\n")
 
@@ -111,7 +111,7 @@ if __name__ == '__main__':
 #         for sequence in f2.readlines():
 #             sequence = sequence[:-6]
 #             d.append(sequence)
-#     with open("../Data/Sds4.txt", "w") as l:
+#     with open("../Data/DS10L1S6L8I5000F.txt", "w") as l:
 #         for i in d:
 #             l.write(i + "\n")
 

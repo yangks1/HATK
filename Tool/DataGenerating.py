@@ -7,7 +7,7 @@ def creatUtileeTable():
         item = random.randint(1000, 2000)
         valeee = random.randint(10, 10000)/10
         utileeTable[str(item)] = float(valeee)
-    with open("../Data/creatDataUtility2.txt", "w") as l:
+    with open("../Data/creatData2Utility.txt", "w") as l:
         j = 0
         for i in utileeTable.keys():
             if j == len(utileeTable)-1:

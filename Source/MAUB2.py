@@ -443,7 +443,7 @@ def HATKMAIN():
 
 
 if __name__ == '__main__':
-    fn = [['../Data/Online2Utility.txt', '../Data/Online-2.txt']]
+    fn = [['../Data/OnlineRetail2DatasetUtility.txt', '../Data/OnlineRetail2Dataset.txt']]
     kL = [2, 50, 100, 150, 200, 500]
     kValue = 0
     for kValue in kL:

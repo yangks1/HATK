@@ -239,18 +239,18 @@ def TOAPminer():
 
 
 """['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
-          ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-          ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
+          ['../Data/OnlineRetail2DatasetUtility.txt', '../Data/OnlineRetail2Dataset.txt'],
+          ['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt'],
           ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
           ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
           ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
+          ['../Data/DS10L1S6L8I5000F-utility.txt', '../Data/DS10L1S6L8I5000F.txt'],
           ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-          ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
+          ['../Data/creatData2Utility.txt', '../Data/creatData2.txt'],
+          ['../Data/creatData3Utility.txt', '../Data/creatData3.txt'],
           ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']"""
 if __name__ == '__main__':
-    fn = [['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt']]
+    fn = [['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt']]
     kL = [[1]]
     kValue = 0
     for kValue in kL:

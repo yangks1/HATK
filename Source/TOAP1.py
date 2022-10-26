@@ -445,11 +445,11 @@ def HATKMAIN():
         cPIL.pop(0)
     return ListsTemp
 
-    # fn = [['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-    #       ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
-    #       ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
-    #       ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-    #       ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt']]
+    # fn = [['../Data/OnlineRetail2DatasetUtility.txt', '../Data/OnlineRetail2Dataset.txt'],
+    #       ['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt'],
+    #       ['../Data/DS10L1S6L8I5000F-utility.txt', '../Data/DS10L1S6L8I5000F.txt'],
+    #       ['../Data/creatData2Utility.txt', '../Data/creatData2.txt'],
+    #       ['../Data/creatData3Utility.txt', '../Data/creatData3.txt']]
     # kL = [[2, 5, 10, 50, 100, 200, 500],
     #       [2, 4, 8, 16, 32, 64, 128],
     #       [2, 4, 6, 8, 10, 12, 14, 16],
@@ -458,7 +458,7 @@ def HATKMAIN():
 
 
 if __name__ == '__main__':
-    fn = [['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt']]
+    fn = [['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt']]
 
     kL = [[1]]
     kValue = 0

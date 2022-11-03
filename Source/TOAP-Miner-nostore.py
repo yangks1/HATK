@@ -1,6 +1,6 @@
 import time
-
-from memory_profiler import memory_usage
+#
+# from memory_profiler import memory_usage
 
 from Tool import DataProcessing as DP
 
@@ -143,6 +143,15 @@ def oneOff(itemSetExitInter, newPatternPosition, newpatternAllPosition):
     return True
 
 
+def oneOff1(itemset, i, R):
+    for p in itemset:
+        if i in R[p]:
+            return True
+        else:
+            return False
+
+
+
 def inter(seta, setb):
     """
     返回seta和setb的交集
@@ -154,7 +163,7 @@ def inter(seta, setb):
     return sorted(list(set(seta) & set(setb)))
 
 
-def eP(ListsTemp, minau):
+def eP(minau):
     """
     模式增长
 
@@ -162,7 +171,7 @@ def eP(ListsTemp, minau):
     :param minau: 最小支持度阈值
     :return:
     """
-    global candidatePatternNum, L
+    global candidatePatternNum
     patternInfor = cPIL[0]
     sizeOfPattern = len(patternInfor[0])
 
@@ -174,19 +183,7 @@ def eP(ListsTemp, minau):
             candidatePatternNum += 1
             newPattern = patternInfor[0][:]
             newPattern.append([item])
-            # 初始化
-            """
-            纪录新模式中各项集之间是否有相同项
-            """
-            # 可优化:纪录上一个模式的itemSetExitInter集合，只需对增加的项集进行查找是否有相同的项即可
-            itemSetExitInter = []
-            for i in range(0, sizeOfPattern + 1):
-                itemSetExitInter.append([])
-            for i in range(0, sizeOfPattern + 1):
-                for j in range(i + 1, sizeOfPattern + 1):
-                    if inter(newPattern[i], newPattern[j]):
-                        itemSetExitInter[i].append(j)
-                        itemSetExitInter[j].append(i)
+            R = {}
             newPatternAllPosition = {}
             si = list(dataTable[item].keys())[:]
             for itemset in newPattern:
@@ -211,10 +208,7 @@ def eP(ListsTemp, minau):
 
                     # 对每个序列的第一个项集进行查找可以使用的位置
                     i = 0
-                    while flagWhile and newPatternPosition[pi] and not oneOff(itemSetExitInter[i],
-                                                                              newPatternPosition[
-                                                                                  pi],
-                                                                              newPatternAllPosition[pi][i]):
+                    while flagWhile and newPatternPosition[pi] and not oneOff1(newPattern[i], newPatternAllPosition[pi][i], R):
                         newPatternAllPosition[pi][i].pop(0)
                         if not newPatternAllPosition[pi][i]:
                             # 若第一个项集没有可扩展的位置时，flagWhile = 0
@@ -263,11 +257,11 @@ def eP(ListsTemp, minau):
                 elif not newPatternPosition[pi][0]:
                     newPatternPosition.pop(pi)
             au = auCalculate(newPattern, newPatternPosition)
-            mtbv = mtb(newPattern, newPatternPosition)
-            if mtbv > minau:
+            msub = mtb(newPattern, newPatternPosition)
+            if msub > minau:
                 if au > minau:
                     minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
-                cPIL.append([newPattern, index + 1, au, mtbv])
+                cPIL.append([newPattern, index + 1, msub])
         else:
             break
     # 项集扩展
@@ -371,11 +365,11 @@ def eP(ListsTemp, minau):
                 elif not newPatternPosition[pi][0]:
                     newPatternPosition.pop(pi)
             au = auCalculate(newPattern, newPatternPosition)
-            mtbv = mtb(newPattern, newPatternPosition)
-            if mtbv > minau:
+            msub = mtb(newPattern, newPatternPosition)
+            if msub > minau:
                 if au > minau:
                     minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
-                cPIL.append([newPattern, index + 1, au, mtbv])
+                cPIL.append([newPattern, index + 1, msub])
         else:
             break
     return minau
@@ -385,7 +379,6 @@ def HATKMAIN():
     # 保存高平均效用模式
     # 初始化变量
     global candidatePatternNum, ListsTemp
-
     minau = 0
     for item in utilityTable.keys():
         length = len(allUList[0])
@@ -399,33 +392,33 @@ def HATKMAIN():
     for item in utilityTable.keys():
         position = dataTable[item]
         pattern = [[item]]
-        mtbv = mtb(pattern, position)
+        msub = mtb(pattern, position)
         length = len(allItemList[0])
         index = 0
-        while length > index and allItemList[1][index] >= mtbv:
+        while length > index and allItemList[1][index] >= msub:
             index = index + 1
         allItemList[0].insert(index, item)
-        allItemList[1].insert(index, mtbv)
+        allItemList[1].insert(index, msub)
     # 生成1-长度的序列
     for item in allItemList[0]:
         candidatePatternNum += 1
         index = allItemList[0].index(item)
-        mtbv = allItemList[1][index]
-        if mtbv > minau:
+        msub = allItemList[1][index]
+        if msub > minau:
             position = {}
             for dt in dataTable[item]:
                 position[dt] = dataTable[item][dt]
             au = auCalculate([[item]], position)
             if au > minau:
                 minau = saveTopkPattern([[item]], ListsTemp, au, minau)
-            cPIL.append([[[item]], index + 1, au, mtbv])
+            cPIL.append([[[item]], index + 1, msub])
     # 模式增长，
     while cPIL:
-        mtbv = cPIL[0][3]
-        if mtbv > minau:
-            minau = eP(ListsTemp, minau)
+        msub = cPIL[0][2]
+        if msub > minau:
+            minau = eP(minau)
         cPIL.pop(0)
-    return ListsTemp
+
 
 if __name__ == '__main__':
     # 数据库预处理
@@ -453,13 +446,14 @@ if __name__ == '__main__':
             allUList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            maxs = memory_usage((HATKMAIN), max_usage=True)
+            # maxs = memory_usage((HATKMAIN), max_usage=True)
+            HATKMAIN()
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
             with open("../Result/TOAP-nostore-result.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
+                # f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
                 f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
                 f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))

@@ -1,6 +1,6 @@
 import time
 
-from memory_profiler import memory_usage
+# from memory_profiler import memory_usage
 
 from Tool import DataProcessing as DP
 
@@ -458,8 +458,7 @@ def HATKMAIN():
 
 
 if __name__ == '__main__':
-    fn = [['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt']]
-
+    fn = [['../Data/example/3Utility.txt', '../Data/example/3.txt']]
     kL = [[1]]
     kValue = 0
     for i in range(0, len(fn)):
@@ -471,11 +470,12 @@ if __name__ == '__main__':
             allItemList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            maxs = memory_usage(HATKMAIN, max_usage=True)
+            # maxs = memory_usage(HATKMAIN, max_usage=True)
+            HATKMAIN()
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
             with open("../Result/TOAP-result1.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
                 f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
-                f.write(str(int(maxs)) + "\t" + str((endTime - starTime)) + "\t" + str(candidatePatternNum) + "\n")
+                # f.write(str(int(maxs)) + "\t" + str((endTime - starTime)) + "\t" + str(candidatePatternNum) + "\n")
                 f.write(str(ListsTemp))

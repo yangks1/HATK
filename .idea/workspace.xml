@@ -5,56 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad2e261a-fd64-41f2-9052-4d6883a587a9" name="Changes" comment="改动">
-      <change afterPath="$PROJECT_DIR$/Data/E-Shop.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/E-ShopUtility.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Sign.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/SignUtility.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/example/1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/example/1Utility.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/example/2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/example/2Utility.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/example/3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/example/3124" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/example/3Utility.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/MicroblogPCU.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/MicroblogPCU.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/MicroblogPCUUtility.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/MicroblogPCUUtility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Online-2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/OnlineRetail2Dataset.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Online2Utility.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/OnlineRetail2DatasetUtility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/SDB4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/SDB4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds1-utility.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/Sds1-utility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/Sds1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds2-utility.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/Sds2-utility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/Sds2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds3-utility.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/Sds3-utility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/Sds3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds4-utility.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DS10L1S6L8I5000F-utility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Sds4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DS10L1S6L8I5000F.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatData.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatData1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/creatData1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatData4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/creatData4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatDataUtility.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatDataUtility1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/creatDataUtility1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatDataUtility2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/creatData2Utility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatDataUtility3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/creatData3Utility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/creatDataUtility4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/creatDataUtility4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/online-utility.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/OnlineRetail1DatasetUtility.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/onlineUtilityTable.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/OnlineRetail1Dataset.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/onlineUtilityTable1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data-remain/onlineUtilityTable1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DataProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DataProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MAUB.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MAUB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MAUB2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MAUB2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MAUB3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MAUB3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NSAP-Miner-update.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NSAP-Miner-update.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/PatternStitching.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/PatternStitching.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Result/TOAP-result1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Result/TOAP-result1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TOAP-Miner-nostore.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Miner-nostore.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP-Miner-nostore2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Miner-nostore2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP-Miner-nostore3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Miner-nostore3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP-Ordered.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Ordered.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP-Ordered2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Ordered2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP-Ordered3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Ordered3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP-Originaldata.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Originaldata.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP-Originaldata1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Originaldata1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TOAP.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TOAP1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tool/2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tool/2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tool/DataGenerating.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tool/DataGenerating.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tool/DataProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tool/DataProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tool/HATK_Main2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tool/HATK_Main2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tool/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tool/data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,10 +38,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Data/chainstore.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/TOAP-Originaldata.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/TOAP.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2EZBD4xuccyu2gXRySyYyY6sRF1" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -97,7 +68,7 @@
       <recent name="D:\workspace\PyCharm\TOAP-Miner\HATK\Data-remain" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.TOAP-Miner">
+  <component name="RunManager" selected="Python.TOAP1">
     <configuration name="DFOM-Mul" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HATK" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -111,6 +82,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/DFOM-Mul.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="DataProcessing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HATK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tool" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tool/DataProcessing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -140,8 +132,53 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="TOAP" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HATK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/TOAP.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TOAP1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HATK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/TOAP1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.TOAP1" />
+        <item itemvalue="Python.DataProcessing" />
+        <item itemvalue="Python.TOAP" />
         <item itemvalue="Python.TOAP-Miner" />
         <item itemvalue="Python.DFOM-Mul" />
       </list>
@@ -163,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665453655600</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="改动">
+      <created>1666774206387</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666774206387</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -181,5 +225,22 @@
     <MESSAGE value="改动" />
     <option name="LAST_COMMIT_MESSAGE" value="改动" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Source/TOAP.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="utilityTable" />
+        <watch expression="pattern" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

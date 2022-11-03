@@ -11,8 +11,7 @@ def operateUtilityTableFile1(fn):
         utilityTable = {}
         for i in f1.readlines():
             name = i.split('\t', 1)[0]
-            # print(i)
-            price = float(i.split('\t')[1])
+            price = float(i.split("\t")[1])
             utilityTable[name] = price
     return utilityTable
 
@@ -32,13 +31,13 @@ def operateDataFile1(utilityTable, fn):  # 处理序列数据库
             sequenceIdString = str(sequenceId) + ""  # 用于将序列号改成字符串类型
             for letter in sequence:
                 # 各编号数据之间用空格间隔
-                if letter != " " and string != "-1":
+                if letter != " " and string != "-1" and letter != '\n':
                     string += letter
                 elif string == "-1":  # 判断该数据是否为"-1"，如果是，代表该多项集结束
                     string = ""
                     itemSetsId += 1
                     # 如果字符k不是空格则继续扫描j，字符串str也不是“-1”，继续扫描字符串， 并将字符k加入字符串str中
-                elif letter == " ":
+                elif letter == " " or letter == '\n':
                     if string not in dataTableTemp.keys():
                         print(string + "不存在")
                     elif sequenceIdString not in dataTableTemp[string].keys():

@@ -5,19 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad2e261a-fd64-41f2-9052-4d6883a587a9" name="Changes" comment="改动">
-      <change afterPath="$PROJECT_DIR$/Data/example/1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/example/1Utility.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/example/2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/example/2Utility.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/example/3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/example/3124" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/example/3Utility.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Result/TOAP-result1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Result/TOAP-result1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/example/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/example/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/example/3124" beforeDir="false" afterPath="$PROJECT_DIR$/Data/example/3124" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Result/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Result/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Result/TOAP-noorder-result.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Result/TOAP-noorder-result.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Result/TOAP-noorder-result1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Result/TOAP-noorder-result1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Result/TOAP-nostore-result.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Result/TOAP-nostore-result.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TOAP-Miner-nostore.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP-Miner-nostore.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TOAP.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TOAP1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TOAP1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tool/DataProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tool/DataProcessing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,28 +65,7 @@
       <recent name="D:\workspace\PyCharm\TOAP-Miner\HATK\Data-remain" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.TOAP1">
-    <configuration name="DFOM-Mul" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HATK" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/DFOM-Mul.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.TOAP-Miner-nostore">
     <configuration name="DataProcessing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HATK" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -103,6 +79,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tool/DataProcessing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TOAP-Miner-nostore" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HATK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/TOAP-Miner-nostore.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -176,11 +173,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.TOAP-Miner-nostore" />
+        <item itemvalue="Python.TOAP" />
         <item itemvalue="Python.TOAP1" />
         <item itemvalue="Python.DataProcessing" />
-        <item itemvalue="Python.TOAP" />
         <item itemvalue="Python.TOAP-Miner" />
-        <item itemvalue="Python.DFOM-Mul" />
       </list>
     </recent_temporary>
   </component>
@@ -207,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666774206387</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="改动">
+      <created>1667483537119</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667483537119</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,12 +233,29 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Source/TOAP.py</url>
           <line>54</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Source/TOAP-Miner-nostore.py</url>
+          <line>129</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Source/TOAP-Miner-nostore.py</url>
+          <line>168</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">

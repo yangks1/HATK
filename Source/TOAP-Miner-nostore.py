@@ -127,28 +127,11 @@ def mtb(pattern, patternPosition):
     return mtbv
 
 
-def oneOff(itemSetExitInter, newPatternPosition, newpatternAllPosition):
-    """
-    一次性判断
-    满足一次性返回True，否则返回False
-
-    :param itemSetExitInter:序列模式中各项集之间的交集关系
-    :param newPatternPosition:
-    :param newpatternAllPosition:
-    :return:
-    """
-    for patternIndex in itemSetExitInter:
-        if newpatternAllPosition[0] in newPatternPosition[patternIndex]:
-            return False
-    return True
-
-
 def oneOff1(itemset, i, R):
     for p in itemset:
-        if i in R[p]:
-            return True
-        else:
+        if i[0] in R[p]:
             return False
+    return True
 
 
 
@@ -188,6 +171,7 @@ def eP(minau):
             si = list(dataTable[item].keys())[:]
             for itemset in newPattern:
                 for items in itemset:
+                    R[items] = []
                     si = inter(si, list(dataTable[items])[:])
             for id in si:
                 newPatternAllPosition[id] = []
@@ -201,6 +185,8 @@ def eP(minau):
                     newPatternAllPosition[id].append(isl)
             newPatternPosition = {}
             for pi in newPatternAllPosition:
+                for item in R.keys():
+                    R[item] = []
                 newPatternPosition[pi] = []
                 flagWhile = 1
                 while flagWhile and newPatternAllPosition[pi][0]:
@@ -222,9 +208,7 @@ def eP(minau):
                         if newPatternAllPosition[pi][i]:
                             if newPatternPosition[pi]:
                                 while flagWhile and (
-                                        newPatternAllPosition[pi][i][0] <= occurrencePosition[i - 1][0] or not oneOff(
-                                    itemSetExitInter[i], newPatternPosition[pi],
-                                    newPatternAllPosition[pi][i])):
+                                        newPatternAllPosition[pi][i][0] <= occurrencePosition[i - 1][0] or not oneOff1(newPattern[i], newPatternAllPosition[pi][i], R)):
                                     newPatternAllPosition[pi][i].pop(0)
                                     if not newPatternAllPosition[pi][i]:
                                         # 若第i+1个项集没有可扩展的位置时，flagWhile = 0
@@ -245,6 +229,9 @@ def eP(minau):
                             i += 1
                     if flagWhile:
                         # flagWhile = 1，走到这一步说明新模式在序列patternIndex中有一个完整的出现生成，并将其存入newPatternPosition[pi]中
+                        for id in range(0, len(newPattern)):
+                            for item in newPattern[id]:
+                                R[item].append(occurrencePosition[id][0])
                         if not newPatternPosition[pi]:
                             newPatternPosition[pi] = occurrencePosition
                         else:
@@ -273,6 +260,8 @@ def eP(minau):
             newPattern = patternInfor[0][:sizeOfPattern - 1]
             newPattern.append(patternInfor[0][sizeOfPattern - 1][:])
             newPattern[sizeOfPattern - 1].append(item)
+
+            R = {}
             # 初始化
             """
             纪录新模式中各项集之间是否有相同项
@@ -290,6 +279,7 @@ def eP(minau):
             si = list(dataTable[item].keys())[:]
             for itemset in newPattern:
                 for items in itemset:
+                    R[items] = []
                     si = inter(si, list(dataTable[items])[:])
             for id in si:
                 newPatternAllPosition[id] = []
@@ -305,6 +295,8 @@ def eP(minau):
                     newPatternAllPosition[id].append(isl)
             newPatternPosition = {}
             for pi in newPatternAllPosition:
+                for item in R.keys():
+                    R[item] = []
                 newPatternPosition[pi] = []
                 flagWhile = 1
                 while flagWhile and newPatternAllPosition[pi][0]:
@@ -312,10 +304,7 @@ def eP(minau):
 
                     # 对每个序列的第一个项集进行查找可以使用的位置
                     i = 0
-                    while flagWhile and newPatternPosition[pi] and not oneOff(itemSetExitInter[i],
-                                                                              newPatternPosition[
-                                                                                  pi],
-                                                                              newPatternAllPosition[pi][i]):
+                    while flagWhile and newPatternPosition[pi] and not oneOff1(newPattern[i], newPatternAllPosition[pi][i], R):
                         newPatternAllPosition[pi][i].pop(0)
                         if not newPatternAllPosition[pi][i]:
                             # 若第一个项集没有可扩展的位置时，flagWhile = 0
@@ -328,11 +317,7 @@ def eP(minau):
                     while flagWhile and i < sizeOfPattern:
                         if newPatternAllPosition[pi][i]:
                             if newPatternPosition[pi]:
-                                while flagWhile and (
-                                        newPatternAllPosition[pi][i][0] <= occurrencePosition[i - 1][
-                                    0] or not oneOff(
-                                    itemSetExitInter[i], newPatternPosition[pi],
-                                    newPatternAllPosition[pi][i])):
+                                while flagWhile and (newPatternAllPosition[pi][i][0] <= occurrencePosition[i - 1][0] or not oneOff1(newPattern[i], newPatternAllPosition[pi][i], R)):
                                     newPatternAllPosition[pi][i].pop(0)
                                     if not newPatternAllPosition[pi][i]:
                                         # 若第i+1个项集没有可扩展的位置时，flagWhile = 0
@@ -353,13 +338,15 @@ def eP(minau):
                             i += 1
                     if flagWhile:
                         # flagWhile = 1，走到这一步说明新模式在序列patternIndex中有一个完整的出现生成，并将其存入newPatternPosition[pi]中
+                        for id in range(0, len(newPattern)):
+                            for item in newPattern[id]:
+                                R[item].append(occurrencePosition[id][0])
                         if not newPatternPosition[pi]:
                             newPatternPosition[pi] = occurrencePosition
                         else:
                             for j in range(0, sizeOfPattern):
                                 newPatternPosition[pi][j] = newPatternPosition[pi][j] + \
                                                             occurrencePosition[j]
-
                 if not newPatternPosition[pi]:
                     newPatternPosition.pop(pi)
                 elif not newPatternPosition[pi][0]:
@@ -421,20 +408,18 @@ def HATKMAIN():
 
 
 if __name__ == '__main__':
-    # 数据库预处理
+    # # 数据库预处理
     fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
           ['../Data/OnlineRetail2DatasetUtility.txt', '../Data/OnlineRetail2Dataset.txt'],
           ['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt'],
-          ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
-          ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
-          ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
           ['../Data/DS10L1S6L8I5000F-utility.txt', '../Data/DS10L1S6L8I5000F.txt'],
-          ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
           ['../Data/creatData2Utility.txt', '../Data/creatData2.txt'],
           ['../Data/creatData3Utility.txt', '../Data/creatData3.txt'],
-          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
+          ['../Data/E-ShopUtility.txt', '../Data/E-Shop.txt'],
+          ['../Data/SignUtility.txt', '../Data/Sign.txt']]
+    # fn = [['../Data/example/3Utility.txt', '../Data/example/3.txt']]
     kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
+    # kL = [8]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):
@@ -466,24 +451,26 @@ if __name__ == '__main__':
     #              "e": {"1": [[4]], "2": [[1, 3]], "4": [[2]], "5": [[1, 2, 3]]},
     #              "f": {"1": [[5]], "3": [[1]], "5": [[4]]}}
     # utilityTable = {"a": 2.1, "b": 1.2}
-    # # # dataTable = {"a": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}, "b": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}}
+    # dataTable = {"a": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}, "b": {"1": [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]]}}
     # utilityTable = {"a": 10, "b": 5, "c": 8, "d": 3}
-    # dataTable = {"a": {"1": [[1, 2, 3, 5, 6]], "2": [[1, 2, 3, 5, 7]], "3": [[1, 2, 3]], "4": [[1, 2, 4, 6]]},
-    #              "b": {"1": [[1, 2, 4, 5]], "2": [[2, 3, 5, 8]], "3": [[2, 3, 5, 6]], "4": [[2]]},
-    #              "c": {"2": [[2, 4, 5, 7]], "4": [[3, 4, 6]]},
-    #              "d": {"1": [[4]], "2": [[2, 4, 6, 8]], "3": [[1, 3, 4, 6]], "4": [[1, 2, 3, 5, 7]]}
+    # dataTable = {"a": {"1": [[1, 3, 4, 5, 6]], "2": [[1, 2, 3, 4, 6]]},
+    #              "b": {"1": [[1, 3, 4, 6]], "2": [[2, 3, 4]]},
+    #              "c": {"1": [[2, 3, 4, 5]], "2": [[1, 3, 5, 6]]},
+    #              "d": {"1": [[5]], "2": [[3, 5]]}
     #              }
-    # kValue = 10
+    # kValue = 8
     # cPIL = []
     # allItemList = [[], []]
     # allUList = [[], []]
+    # ListsTemp = [[], []]
     # candidatePatternNum = 0
     # starTime = time.time()
-    # maxs = memory_usage((HATKMAIN), max_usage=True)
-    # # Lists = HATKMAIN()
+    # # maxs = memory_usage((HATKMAIN), max_usage=True)
+    # HATKMAIN()
     # endTime = time.time()
     # # print("k = " + str(kValue) + ", " + fnd[i])
-    # print("最大内存使用：" + str(maxs) + "Mb")
+    # # print("最大内存使用：" + str(maxs) + "Mb")
+    # print(ListsTemp)
     # print("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms")
     # print("候选模式数量：" + str(candidatePatternNum))
 

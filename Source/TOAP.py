@@ -513,7 +513,7 @@ if __name__ == '__main__':
     # kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
     fn = [['../Data/example/3Utility.txt', '../Data/example/3.txt']]
     # fn = [['../Data/example/2Utility.txt', '../Data/example/2.txt']]
-    kL = [3]
+    kL = [8]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):

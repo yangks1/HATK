@@ -3,6 +3,8 @@ import time
 from Tool import DataProcessing as DP
 
 from memory_profiler import memory_usage
+
+
 def utility(pattern):
     """
     :param pattern: 输入的需要计算的模式例如：[["1002", "1003"]["1004"]]
@@ -468,7 +470,7 @@ if __name__ == '__main__':
             allItemList = [[], []]
             candidatePatternNum = 0
             starTime = time.time()
-            maxs = memory_usage(HATKMAIN, max_usage=True)
+            maxs = memory_usage(HATKMAIN, max_usage = True)
             # HATKMAIN()
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])

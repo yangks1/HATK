@@ -3,6 +3,7 @@
     <words>
       <w>allit</w>
       <w>endposition</w>
+      <w>endtime</w>
       <w>hatkmain</w>
       <w>indexi</w>
       <w>infor</w>
@@ -17,8 +18,10 @@
       <w>newpattern</w>
       <w>occurence</w>
       <w>ofposition</w>
+      <w>pdata</w>
       <w>seta</w>
       <w>setb</w>
+      <w>starttime</w>
       <w>topk</w>
     </words>
   </dictionary>

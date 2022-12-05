@@ -1,0 +1,5 @@
+a c -1 a c -1 c -1 a c -1 c
+b f -1 a c e -1 c -1 d e
+a c d -1 f -1 a b c -1 c -1 a c e f -1 c e
+a b c -1 a c -1 c -1 e -1 c e f
+c d -1 a c -1 c -1 a c d -1 b -1 c e

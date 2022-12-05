@@ -1,10 +1,7 @@
-import re
 import time
 import sys
-import json
-from collections import defaultdict, OrderedDict
-import json
-import Pdata
+from Tool import Pdata
+
 pdata = Pdata.processingData()
 def pares(a,s,k,q):
     for j in range(k,len(s)):

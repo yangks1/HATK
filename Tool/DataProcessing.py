@@ -94,10 +94,10 @@ def findUtility():
 
 if __name__ == '__main__':
 
-    str1 = "../Data/chainstoreUtility.txt"
+    # str1 = "../Data/chainstoreUtility.txt"
     str2 = "../Data/chainstore.txt"
-    c = operateUtilityTableFile1(str1)
-    b = operateDataFile1(c, str2)
+    # c = operateUtilityTableFile1(str1)
+    b = operateDataFile2(str2)
     print(b)
 
 

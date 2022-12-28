@@ -430,7 +430,7 @@ def HATKMAIN():
 
 if __name__ == '__main__':
     # 数据库预处理
-    fn = [['../Data/Online2Utility.txt', '../Data/Online-2.txt']]
+    fn = [['../Data/OnlineRetail2DatasetUtility.txt', '../Data/OnlineRetail2Dataset.txt']]
     kL = [2, 5, 100, 200, 500]
     kValue = 0
     for kValue in kL:

@@ -6,7 +6,7 @@ utilityTable = {}
 
 '''               读取效用表                  '''
 def operateUtilityTableFile():
-    with open("../Data/onlineUtilityTable.txt", 'r') as f1:
+    with open("../Data/OnlineRetail1Dataset.txt", 'r') as f1:
         global utilityTable
         for i in f1.readlines():
             name = i.split('\t', 1)[0]
@@ -32,7 +32,7 @@ def operateDataFile():  # 处理序列数据库
         dataTable[utk] = {}
     for utk in utilityTable.keys():
         multiDataTable[utk] = {}
-    with open("../Data/online-utility.txt", 'r') as f2:
+    with open("../Data/OnlineRetail1DatasetUtility.txt", 'r') as f2:
         # global dataTable
         r = 0  # 纪录序列号
         for j in f2.readlines():

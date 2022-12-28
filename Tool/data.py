@@ -43,6 +43,6 @@ with open("Online.txt", "r") as f:
             code = i.split('\t', 2)[2][:1]
             if code <= '9' and code >= '0':
                 seq = seq + i.split('\t', 2)[2][:5] + " "
-    with open("../Data/online-utility.txt", "w") as l:
+    with open("../Data/OnlineRetail1DatasetUtility.txt", "w") as l:
         for sdb in sdb:
             l.write(sdb+'\n')

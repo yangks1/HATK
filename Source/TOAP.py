@@ -1,8 +1,10 @@
 import time
 
+# from memory_profiler import memory_usage
+
 from Tool import DataProcessing as DP
 
-from memory_profiler import memory_usage
+
 def utility(pattern):
     """
     :param pattern: 输入的需要计算的模式例如：[["1002", "1003"]["1004"]]
@@ -59,6 +61,7 @@ def auCalculate(pattern, patternPosition):
     :return: 模式pattern的平均效用
     """
     supportValue = sc(patternPosition)
+    # print(supportValue)
     utilityValue = utility(pattern)
     length = lenPattern(pattern)
     averageUtility = (supportValue * utilityValue) / length
@@ -292,11 +295,26 @@ def EP(ListsTemp, minau):
                     newPatternDeletePosition.pop(patternIndex)
         au = auCalculate(newPattern, newPatternPosition)
         msub = mtb(newPattern, newPatternPosition)
+        print(newPattern)
+        print("au: " + str(au))
+        print("msub: " + str(msub))
+        maub = sc(newPatternPosition)*10
+        print("maub: " + str(maub))
+        L.append(newPattern)
+        L.append("au: " + str(au))
+        L.append("msub: " + str(msub))
+        L.append("maub: " + str(maub))
+        L.append("minau: " + str(minau))
+        L.append("---------------------------------")
         if msub > minau:
             if au > minau:
                 minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
             cPIL.append([newPattern, index + 1, newPatternPosition, msub, newPatternDeletePosition])
-
+        print("候选集：")
+        print(cPIL[0][0])
+        print("结果集：")
+        print(ListsTemp)
+        print("\n")
     # 项集扩展
     for item in allItemList[0][patternInfor[1]:]:
         index = allItemList[0].index(item)
@@ -405,10 +423,26 @@ def EP(ListsTemp, minau):
                     newPatternPosition.pop(patternIndex)
         au = auCalculate(newPattern, newPatternPosition)
         msub = mtb(newPattern, newPatternPosition)
+        print(newPattern)
+        print("au: " + str(au))
+        print("msub: " + str(msub))
+        maub = sc(newPatternPosition) * 10
+        print("maub: " + str(maub))
+        L.append(newPattern)
+        L.append("au: " + str(au))
+        L.append("msub: " + str(msub))
+        L.append("maub: " + str(maub))
+        L.append("minau: " + str(minau))
+        L.append("---------------------------------")
         if msub > minau:
             if au > minau:
                 minau = saveTopkPattern(newPattern, ListsTemp, au, minau)
             cPIL.append([newPattern, index + 1, newPatternPosition, msub, newPatternDeletePosition])
+        print("候选集：")
+        print(cPIL[0][0])
+        print("结果集：")
+        print(ListsTemp)
+        print("\n")
     return minau
 
 
@@ -432,10 +466,29 @@ def HATKMAIN():
             deletePosition[dt] = [[]]
         au = auCalculate([[item]], position)
         msub = mtb([[item]], position)
+        print([[item]])
+        print("au: " + str(au))
+        print("msub: " + str(msub))
+        maub = sc(position) * 10
+        print("maub: " + str(maub))
+        L.append([[item]])
+        L.append("au: " + str(au))
+        L.append("msub: " + str(msub))
+        L.append("maub: " + str(maub))
+        L.append("minau: " + str(minau))
+        L.append("---------------------------------")
+
         if msub > minau:
             if au > minau:
                 minau = saveTopkPattern([[item]], ListsTemp, au, minau)
             cPIL.append([[[item]], list(utilityTable.keys()).index(item) + 1, position, msub, deletePosition])
+
+        if cPIL != []:
+            print("候选集：")
+            print(cPIL[0][0])
+        print("结果集：")
+        print(ListsTemp)
+        print("\n")
     while cPIL:
         msub = cPIL[0][3]
         if msub > minau:
@@ -445,25 +498,31 @@ def HATKMAIN():
 
 
 if __name__ == '__main__':
-    fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
-          ['../Data/MicroblogPCUUtility.txt', '../Data/MicroblogPCU.txt'],
-          ['../Data/Online2Utility.txt', '../Data/Online-2.txt'],
-          ['../Data/onlineUtilityTable.txt', '../Data/online-utility.txt'],
-          ['../Data/Sds1-utility.txt', '../Data/Sds1.txt'],
-          ['../Data/Sds2-utility.txt', '../Data/Sds2.txt'],
-          ['../Data/Sds3-utility.txt', '../Data/Sds3.txt'],
-          ['../Data/Sds4-utility.txt', '../Data/Sds4.txt'],
-          ['../Data/creatDataUtility1.txt', '../Data/creatData1.txt'],
-          ['../Data/creatDataUtility2.txt', '../Data/creatData2.txt'],
-          ['../Data/creatDataUtility3.txt', '../Data/creatData3.txt'],
-          ['../Data/creatDataUtility4.txt', '../Data/creatData4.txt']]
-    kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
+    # fn = [['../Data/chainstoreUtility.txt', '../Data/chainstore.txt'],
+    #       ['../Data/OnlineRetail2DatasetUtility.txt', '../Data/OnlineRetail2Dataset.txt'],
+    #       ['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt'],
+    #       ['../Data/DS10L1S6L8I5000F-utility.txt', '../Data/DS10L1S6L8I5000F.txt'],
+    #       ['../Data/creatData2Utility.txt', '../Data/creatData2.txt'],
+    #       ['../Data/creatData3Utility.txt', '../Data/creatData3.txt']]
+    # fn1 = [['../Data/example/1Utility.txt', '../Data/example/1.txt'],
+    #       ['../Data/OnlineRetail2DatasetUtility.txt', '../Data/OnlineRetail2Dataset.txt'],
+    #       ['../Data/OnlineRetail1Dataset.txt', '../Data/OnlineRetail1DatasetUtility.txt'],
+    #       ['../Data/DS10L1S6L8I5000F-utility.txt', '../Data/DS10L1S6L8I5000F.txt'],
+    #       ['../Data/creatData2Utility.txt', '../Data/creatData2.txt'],
+    #       ['../Data/creatData3Utility.txt', '../Data/creatData3.txt']]
+    # kL = [10, 50, 100, 200, 500, 1000, 1500, 2000, 25000, 3000]
+    fn = [['../Data/example/3Utility.txt', '../Data/example/3.txt']]
+    # fn = [['../Data/example/2Utility.txt', '../Data/example/2.txt']]
+    kL = [8]
     kValue = 0
     for kValue in kL:
         for i in range(0, len(fn)):
-            utilityTable = DP.operateUtilityTableFile1(fn[i][0])
+            # utilityTable = DP.operateUtilityTableFile1(fn[i][0])
+            utilityTable = {'a': 10, 'b': 5, 'c': 8, 'd': 3}
+            # utilityTable = {'a': 2.1, 'b': 1.2}
             dataTable = DP.operateDataFile1(utilityTable, fn[i][1])
             cPIL = []
+            L = []
             ListsTemp = [[], []]
             allItemList = [[], []]
             candidatePatternNum = 0
@@ -472,6 +531,15 @@ if __name__ == '__main__':
             # HATKMAIN()
             endTime = time.time()
             print("k = " + str(kValue) + ", " + fn[i][1])
+            with open("../Result/3.txt", 'a') as f:
+                # f.write("\n----------------------------------------------------------------------\n")
+                # f.write("k = " + str(kValue) + ", " + fn[i][1] + "\n")
+                # # f.write("最大内存使用：" + str(maxs) + "Mb" + "\n")
+                # f.write("运行时间：" + str(endTime * 1000 - starTime * 1000) + "ms" + "\n")
+                # f.write("候选模式数量：" + str(candidatePatternNum) + "\n")
+                # f.write(str(ListsTemp))
+                for l in L:
+                    f.write(str(l) + '\n')
             print("最大内存使用：" + str(maxs) + "Mb" + "\n")
             with open("../Result/TOAP-noorder-result.txt", 'a') as f:
                 f.write("\n----------------------------------------------------------------------\n")
